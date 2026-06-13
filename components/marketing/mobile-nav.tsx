@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NAV, SITE } from "@/lib/site";
+import { NAV, SITE, QUOTE_HREF } from "@/lib/site";
 
 /**
  * Mobile navigation drawer. Renders the hamburger trigger (md:hidden) and a
@@ -79,7 +79,7 @@ export function MobileNav() {
                 Call {SITE.phone}
               </a>
               <Button
-                href="#contact"
+                href={QUOTE_HREF}
                 size="lg"
                 variant="accent"
                 className="mt-2 w-full"

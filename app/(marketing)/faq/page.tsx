@@ -35,7 +35,7 @@ export default function FaqPage() {
           <p className="mt-5 text-lg leading-relaxed text-ad-muted">
             Clear answers on dilapidation and building condition reports, structural
             engineering, BASIX and NatHERS. Have a question that isn&apos;t here?{" "}
-            <a href="#contact" className="font-medium text-ad-accent hover:brightness-90">
+            <a href="/quote" className="font-medium text-ad-accent hover:brightness-90">
               Talk to our team.
             </a>
           </p>

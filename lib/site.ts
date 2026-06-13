@@ -19,12 +19,8 @@ export const NAV = [
   { label: "About", href: "/#about" },
 ];
 
-/**
- * Where every "Request a Quote" CTA points. Swapped to "/quote" once the lead
- * form ships; until then it anchors to the in-page #contact CTA band that every
- * page renders.
- */
-export const QUOTE_HREF = "#contact";
+/** Where every "Request a Quote" CTA points — the dedicated lead form. */
+export const QUOTE_HREF = "/quote";
 
 /** Real operating stats (Capability Statement, "Who Are We?"). */
 export const STATS = [

@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Container } from "./container";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "./mobile-nav";
-import { NAV, SITE } from "@/lib/site";
+import { NAV, SITE, QUOTE_HREF } from "@/lib/site";
 
 export function SiteHeader() {
   return (
@@ -39,7 +39,7 @@ export function SiteHeader() {
           >
             {SITE.phone}
           </a>
-          <Button href="#contact" size="sm" variant="accent" className="hidden md:inline-flex">
+          <Button href={QUOTE_HREF} size="sm" variant="accent" className="hidden md:inline-flex">
             Request a Quote
           </Button>
           <MobileNav />
