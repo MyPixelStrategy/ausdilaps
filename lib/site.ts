@@ -39,21 +39,25 @@ export const SERVICES = [
   {
     title: "Dilapidation Reports",
     tag: "Flagship",
+    href: "/dilapidation-reports",
     body: "Pre- and post-construction property condition reports that document existing conditions and provide a defensible baseline — residential, commercial and infrastructure.",
   },
   {
     title: "Structural Integrity Assessments",
     tag: "SIA",
+    href: "/our-services/structural-integrity-assessments",
     body: "Evaluate the structural performance and stability of assets, identifying weaknesses or potential failures early for safety, compliance and informed remediation.",
   },
   {
     title: "Defect Origin Assessments",
     tag: "DOA",
+    href: "/our-services/defect-origin-assessments-doa",
     body: "Investigate and determine the root cause of defects with evidence-based reporting — supporting remediation, dispute resolution and accurate liability.",
   },
   {
     title: "Defect Comparison Assessments",
     tag: "DCA",
+    href: "/our-services/defect-comparison-assessments",
     body: "Compare pre- and post-construction conditions to identify changes and construction impacts, supporting claims management and transparent reporting.",
   },
 ];

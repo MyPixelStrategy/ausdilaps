@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { Container } from "@/components/marketing/container";
 import { Eyebrow } from "@/components/marketing/eyebrow";
 import { Button } from "@/components/ui/button";
@@ -178,25 +179,33 @@ function Services() {
   return (
     <section id="services" className="scroll-mt-20 py-20 lg:py-28">
       <Container>
-        <div className="max-w-2xl">
-          <Eyebrow className="text-ad-accent">What we do</Eyebrow>
-          <h2 className="mt-5 font-heading text-3xl font-semibold tracking-tight text-ad-ink sm:text-4xl">
-            Specialist reports, backed by chartered engineering.
-          </h2>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <Eyebrow className="text-ad-accent">What we do</Eyebrow>
+            <h2 className="mt-5 font-heading text-3xl font-semibold tracking-tight text-ad-ink sm:text-4xl">
+              Specialist reports, backed by chartered engineering.
+            </h2>
+          </div>
+          <Link href="/our-services" className="text-sm font-medium text-ad-accent hover:brightness-90">
+            View all services →
+          </Link>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {SERVICES.map((s) => (
-            <div
+            <Link
               key={s.title}
+              href={s.href}
               className="group flex flex-col rounded-xl border border-ad-border bg-white p-7 transition-colors hover:border-ad-accent/40"
             >
               <span className="self-start rounded-full bg-ad-surface px-3 py-1 text-xs font-medium uppercase tracking-wider text-ad-muted">
                 {s.tag}
               </span>
-              <h3 className="mt-5 font-heading text-lg font-semibold text-ad-ink">{s.title}</h3>
+              <h3 className="mt-5 font-heading text-lg font-semibold text-ad-ink group-hover:text-ad-accent">
+                {s.title}
+              </h3>
               <p className="mt-3 flex-1 text-sm leading-relaxed text-ad-muted">{s.body}</p>
               <span className="mt-6 text-sm font-medium text-ad-accent">Learn more →</span>
-            </div>
+            </Link>
           ))}
         </div>
       </Container>
