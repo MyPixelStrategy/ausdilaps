@@ -6,9 +6,11 @@
 export type Redirect = { source: string; destination: string; permanent: boolean };
 
 export const REDIRECTS: Redirect[] = [
-  // Legacy /projects/* archives → the new filterable portfolio.
-  { source: "/projects", destination: "/portfolio", permanent: true },
-  { source: "/projects/:category", destination: "/portfolio", permanent: true },
+  // Legacy portfolio category archives → the new filterable portfolio.
+  // (Real legacy path is /portfolio_categories/<cat>/ — NOT /projects/, which
+  // would have shadowed the hero images served from /public/projects/*.jpg.)
+  { source: "/portfolio_categories", destination: "/portfolio", permanent: true },
+  { source: "/portfolio_categories/:cat", destination: "/portfolio", permanent: true },
 
   // Duplicate / junk portfolio slugs.
   {
