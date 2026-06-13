@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Container } from "@/components/marketing/container";
 import { Eyebrow } from "@/components/marketing/eyebrow";
 import { Button } from "@/components/ui/button";
+import { CtaBand } from "@/components/marketing/cta-band";
 import { SITE, STATS, SERVICES, PROCESS, TEAM, TIER1_PROJECTS } from "@/lib/site";
 import { CASE_STUDIES } from "@/data/case-studies";
 
@@ -16,7 +17,7 @@ export default function HomePage() {
       <Projects />
       <Experience />
       <About />
-      <CtaBand />
+      <CtaBand eyebrow="Let's work together" />
     </>
   );
 }
@@ -315,27 +316,3 @@ function About() {
   );
 }
 
-/* ─── CTA band (navy deep) ───────────────────────────────────────── */
-function CtaBand() {
-  return (
-    <section id="contact" className="scroll-mt-20 bg-ad-navy-deep">
-      <div className="blueprint-grid">
-        <Container className="py-20 text-center lg:py-28">
-          <Eyebrow className="justify-center text-ad-accent-2">Let&apos;s work together</Eyebrow>
-          <h2 className="mx-auto mt-6 max-w-3xl text-balance font-heading text-4xl font-semibold tracking-tight text-white sm:text-5xl">
-            Protect your project from the dispute that hasn&apos;t happened yet.
-          </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-ad-on-dark-muted">
-            Tell us about your project and we&apos;ll scope it within 48 hours.
-          </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Button href="#contact" size="lg" variant="onDarkAccent">Request a Quote</Button>
-            <Button href="#contact" size="lg" variant="onDarkOutline">
-              Download Capability Statement
-            </Button>
-          </div>
-        </Container>
-      </div>
-    </section>
-  );
-}

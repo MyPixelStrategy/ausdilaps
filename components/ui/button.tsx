@@ -37,7 +37,7 @@ export function Button({ variant, size, className, href, children, type, onClick
   const cls = cn(buttonVariants({ variant, size }), className);
   if (href) {
     return (
-      <Link href={href} className={cls}>
+      <Link href={href} onClick={onClick} className={cls}>
         {children}
       </Link>
     );

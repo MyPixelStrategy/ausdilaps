@@ -1,15 +1,21 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Container } from "@/components/marketing/container";
 import { Eyebrow } from "@/components/marketing/eyebrow";
+import { Breadcrumbs } from "@/components/marketing/breadcrumbs";
+import { FaqSection } from "@/components/marketing/faq-accordion";
+import { CtaBand } from "@/components/marketing/cta-band";
 import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/seo/json-ld";
-import { SITE, PROCESS, CAPTURE_METHODS } from "@/lib/site";
+import { SITE, PROCESS, CAPTURE_METHODS, QUOTE_HREF } from "@/lib/site";
 import { FAQ } from "@/data/faq";
 import { serviceSchema, howToSchema, faqPageSchema, breadcrumbSchema } from "@/lib/seo";
 
 const PATH = "/dilapidation-reports";
 const dilapFaq = FAQ.find((c) => c.id === "dilapidation-reports")!;
+const CRUMBS = [
+  { name: "Home", path: "/" },
+  { name: "Dilapidation Reports", path: PATH },
+];
 
 export const metadata: Metadata = {
   title: "Dilapidation Reports | Pre- & Post-Construction Building Condition Reports",
@@ -30,21 +36,14 @@ export default function DilapidationReportsPage() {
           ),
           howToSchema("How a dilapidation report is delivered", PROCESS),
           faqPageSchema(dilapFaq.items),
-          breadcrumbSchema([
-            { name: "Home", path: "/" },
-            { name: "Dilapidation Reports", path: PATH },
-          ]),
+          breadcrumbSchema(CRUMBS),
         ]}
       />
 
       {/* Hero */}
       <section className="border-b border-ad-border py-16 lg:py-20">
         <Container className="max-w-3xl">
-          <nav className="text-sm text-ad-muted">
-            <Link href="/" className="hover:text-ad-ink">Home</Link>
-            <span className="px-2">/</span>
-            <span className="text-ad-ink">Dilapidation Reports</span>
-          </nav>
+          <Breadcrumbs crumbs={CRUMBS} />
           <Eyebrow className="mt-6 text-ad-accent">Dilapidation Reports</Eyebrow>
           <h1 className="mt-5 text-balance font-heading text-4xl font-semibold leading-[1.08] tracking-tight text-ad-ink sm:text-5xl">
             Dilapidation reports built to survive a damage claim.
@@ -56,8 +55,8 @@ export default function DilapidationReportsPage() {
             claim is made, it&apos;s the evidence that defends the project.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/#contact" size="lg" variant="accent">Request a Quote</Button>
-            <Button href="/#contact" size="lg" variant="outline">Download Capability Statement</Button>
+            <Button href={QUOTE_HREF} size="lg" variant="accent">Request a Quote</Button>
+            <Button href={QUOTE_HREF} size="lg" variant="outline">Download Capability Statement</Button>
           </div>
         </Container>
       </section>
@@ -187,49 +186,15 @@ export default function DilapidationReportsPage() {
       </section>
 
       {/* FAQ */}
-      <section className="bg-ad-surface py-20 lg:py-24">
-        <Container className="max-w-3xl">
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <Eyebrow className="text-ad-accent">Common questions</Eyebrow>
-              <h2 className="mt-5 font-heading text-3xl font-semibold tracking-tight text-ad-ink">
-                Dilapidation reports, answered.
-              </h2>
-            </div>
-            <Link href="/faq" className="text-sm font-medium text-ad-accent hover:brightness-90">
-              See all FAQs →
-            </Link>
-          </div>
-          <div className="mt-8">
-            {dilapFaq.items.map((item) => (
-              <details key={item.q} className="group border-b border-ad-border py-5">
-                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-heading text-base font-semibold text-ad-ink [&::-webkit-details-marker]:hidden">
-                  {item.q}
-                  <span className="shrink-0 text-xl leading-none text-ad-accent transition-transform duration-200 group-open:rotate-45">+</span>
-                </summary>
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-ad-muted">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        </Container>
-      </section>
+      <FaqSection items={dilapFaq.items} heading="Dilapidation reports, answered." />
 
       {/* CTA */}
-      <section id="contact" className="scroll-mt-20 bg-ad-navy-deep">
-        <div className="blueprint-grid">
-          <Container className="py-16 text-center lg:py-20">
-            <h2 className="mx-auto max-w-2xl font-heading text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-              Need a dilapidation report scoped?
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-ad-on-dark-muted">
-              Tell us the project, location and adjoining properties — we&apos;ll scope it within 48 hours.
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Button href="/#contact" size="lg" variant="onDarkAccent">Request a Quote</Button>
-            </div>
-          </Container>
-        </div>
-      </section>
+      <CtaBand
+        heading="Need a dilapidation report scoped?"
+        subhead="Tell us the project, location and adjoining properties — we'll scope it within 48 hours."
+        secondary={false}
+        size="md"
+      />
     </>
   );
 }

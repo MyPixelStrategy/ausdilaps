@@ -116,3 +116,106 @@ export function breadcrumbSchema(crumbs: { name: string; path: string }[]) {
     })),
   };
 }
+
+/** Per-city professional-service schema for local packs / AEO. HQ stays Aspley
+ *  (mobile/on-site delivery) — areaServed signals local relevance honestly,
+ *  without fabricating a branch address. */
+export function localBusinessForCity(loc: {
+  city: string;
+  region: string;
+  path: string;
+  geo?: { lat: number; lng: number };
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: `AusDilaps — Dilapidation Reports ${loc.city}`,
+    image: absoluteUrl("/projects/queens-wharf.jpg"),
+    url: absoluteUrl(loc.path),
+    telephone: SITE.phone,
+    email: SITE.email,
+    address: POSTAL_ADDRESS,
+    areaServed: [
+      { "@type": "City", name: loc.city },
+      { "@type": "AdministrativeArea", name: loc.region },
+    ],
+    ...(loc.geo && {
+      geo: { "@type": "GeoCoordinates", latitude: loc.geo.lat, longitude: loc.geo.lng },
+    }),
+    knowsAbout: [
+      "Dilapidation reports",
+      `Dilapidation reports ${loc.city}`,
+      "Pre-construction condition surveys",
+      "AS 4349.0",
+    ],
+  };
+}
+
+/** CreativeWork schema for portfolio projects. Deliberately understated —
+ *  ties the work to dilapidation reporting without over-claiming. */
+export function projectSchema(p: {
+  name: string;
+  description: string;
+  path: string;
+  image?: string;
+  client?: string;
+  location?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    name: p.name,
+    headline: p.name,
+    description: p.description,
+    url: absoluteUrl(p.path),
+    ...(p.image && { image: absoluteUrl(p.image) }),
+    about: "Dilapidation reporting",
+    creator: { "@type": "Organization", name: "AusDilaps", url: SITE_URL },
+    ...(p.location && {
+      locationCreated: { "@type": "Place", name: p.location },
+    }),
+  };
+}
+
+/** Article / news schema for the insights pillar (E-E-A-T + GEO). */
+export function articleSchema(a: {
+  headline: string;
+  description: string;
+  path: string;
+  datePublished: string;
+  dateModified?: string;
+  author?: string;
+  image?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: a.headline,
+    description: a.description,
+    url: absoluteUrl(a.path),
+    mainEntityOfPage: absoluteUrl(a.path),
+    datePublished: a.datePublished,
+    dateModified: a.dateModified ?? a.datePublished,
+    ...(a.image && { image: absoluteUrl(a.image) }),
+    author: { "@type": a.author ? "Person" : "Organization", name: a.author ?? "AusDilaps" },
+    publisher: {
+      "@type": "Organization",
+      name: "AusDilaps",
+      logo: { "@type": "ImageObject", url: absoluteUrl("/logo/ad-logo.png") },
+    },
+  };
+}
+
+/** Generic ItemList for index pages (services, portfolio, locations). */
+export function itemListSchema(items: { name: string; path: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      url: absoluteUrl(it.path),
+    })),
+  };
+}
