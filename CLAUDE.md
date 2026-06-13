@@ -31,10 +31,18 @@ Not a brochure. The goal is to make AusDilaps **the category authority** in Aust
 ## 3. Current state (already built & LIVE — don't redo)
 
 - **Repo:** `github.com/MyPixelStrategy/ausdilaps`. **Deployed:** `ausdilaps.vercel.app` (Vercel, connected via git — **every push to `main` auto-deploys**).
-- **Pages live:** `/` (homepage on real content), `/faq` (full, FAQPage schema), `/dilapidation-reports` (pillar, Service + HowTo + FAQPage schema), `/styleguide`.
-- **Design system + brand** implemented (see §5). Real logo wired into header/footer.
-- **Real data captured:** `lib/site.ts`, `data/faq.ts`, `data/case-studies.ts`, `seo/legacy-seo-map.md`, `seo/content-backlog.md`.
-- **Supabase project** exists: ref `zjgntkfzgtrqkklglhpo` (Tokyo region — Sydney wasn't available). Schema written at `supabase/migrations/0001_init.sql` — **not yet run** (see §10).
+- **Pages live (Phases 1–7 BUILT — don't redo):**
+  - `/` homepage, `/faq`, `/styleguide`.
+  - **Pillar + locations + samples:** `/dilapidation-reports` (Service + HowTo + FAQPage), `/dilapidation-reports/[location]` (6 cities sydney/brisbane/melbourne/wollongong/canberra/perth — legacy nested slug `dilapidation-reports-<city>`, per-city LocalBusiness + Service + HowTo + FAQ), `/dilapidation-reports/samples`.
+  - **Services (10):** `/our-services` index + `/our-services/[slug]` (commercial/residential/industrial dilapidation, structural-engineering, aerial-drone-surveys, noise-and-vibration-monitoring-services, defect-origin-assessments-doa, highways-roads, structural-integrity-assessments, defect-comparison-assessments). Data: `data/services.ts`.
+  - **Portfolio (24):** `/portfolio` filterable index + `/portfolio/[slug]` — 21 real projects (verbatim legacy slugs) + 3 case studies. Data: `data/portfolio.ts` (+ `data/case-studies.ts`). Imagery in `public/portfolio/` + `public/projects/`.
+  - **Insights (MDX):** `/insights` + `/insights/[slug]` — `content/insights/*.mdx` via `lib/insights.ts` (gray-matter + next-mdx-remote/rsc). 3 articles live; tunnel/Brisbane-2032/natural-events still TODO (need grounded research).
+  - **Lead engine:** `/quote` form + `/api/quote` (zod `lib/leads.ts` + tier classify, honeypot, env-gated Turnstile, Supabase insert, Resend admin+ack, Salesforce upsert `lib/salesforce.ts` behind `SF_SYNC_ENABLED`, `LEAD_TEST_MODE`). All CTAs → `/quote` via `QUOTE_HREF`.
+  - **SEO:** `app/sitemap.ts` (51 urls, data-driven), `app/robots.ts`, `app/llms.txt/route.ts`, `data/redirects.ts` → `next.config.ts redirects()`, GA4 env-gated in `app/layout.tsx`.
+- **Shared components** (`components/marketing/`): `breadcrumbs`, `page-hero`, `content-section` (data-driven bands), `faq-accordion` (FaqList/FaqSection), `cta-band`, `related-links`, `portfolio-card`/`portfolio-grid`, `insights-grid`, `mobile-nav`, `quote-form`. Schema builders added to `lib/seo.ts`: `localBusinessForCity`, `projectSchema`, `articleSchema`, `itemListSchema`.
+- **Design system + brand** implemented (see §5). Real logo wired into header/footer. Mobile nav added.
+- **Supabase project** exists: ref `zjgntkfzgtrqkklglhpo` (Tokyo region). `supabase/migrations/0001_init.sql` — **still not run** (the form persists only once it is + env set; see §10).
+- **Pre-cutover task:** `/dilapidation-reports/samples` links the LIVE WP sample PDFs (too heavy to commit; no R2 in v1) — must be re-hosted (Supabase Storage or compressed/committed) before the WP site comes down. See `seo/content-backlog.md`.
 - **Build is green.** Always keep it that way: `npm run build`.
 
 ---

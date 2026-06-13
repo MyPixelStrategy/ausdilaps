@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import type { ComponentProps } from "react";
 import { Container } from "@/components/marketing/container";
 import { Eyebrow } from "@/components/marketing/eyebrow";
 import { Breadcrumbs } from "@/components/marketing/breadcrumbs";
+import { Markdown } from "@/components/marketing/markdown";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
 import { getAllInsights, getInsight, getInsightSlugs, formatInsightDate } from "@/lib/insights";
@@ -29,27 +28,6 @@ export async function generateMetadata({
     alternates: { canonical: `/insights/${post.slug}` },
   };
 }
-
-const mdxComponents = {
-  h2: (p: ComponentProps<"h2">) => (
-    <h2 className="mt-12 font-heading text-2xl font-semibold tracking-tight text-ad-ink" {...p} />
-  ),
-  h3: (p: ComponentProps<"h3">) => (
-    <h3 className="mt-8 font-heading text-xl font-semibold text-ad-ink" {...p} />
-  ),
-  p: (p: ComponentProps<"p">) => <p className="mt-5 leading-relaxed text-ad-muted" {...p} />,
-  ul: (p: ComponentProps<"ul">) => (
-    <ul className="mt-5 list-disc space-y-2 pl-5 text-ad-muted marker:text-ad-accent" {...p} />
-  ),
-  ol: (p: ComponentProps<"ol">) => (
-    <ol className="mt-5 list-decimal space-y-2 pl-5 text-ad-muted" {...p} />
-  ),
-  li: (p: ComponentProps<"li">) => <li className="leading-relaxed" {...p} />,
-  a: (p: ComponentProps<"a">) => (
-    <a className="font-medium text-ad-accent underline hover:brightness-90" {...p} />
-  ),
-  strong: (p: ComponentProps<"strong">) => <strong className="font-semibold text-ad-ink" {...p} />,
-};
 
 export default async function InsightPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -99,7 +77,7 @@ export default async function InsightPage({ params }: { params: Promise<{ slug: 
         <div className="py-12 lg:py-16">
           <Container className="max-w-3xl">
             <div className="text-[1.05rem]">
-              <MDXRemote source={post.content} components={mdxComponents} />
+              <Markdown source={post.content} />
             </div>
 
             <div className="rule-hairline my-12" />
