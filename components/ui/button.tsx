@@ -8,11 +8,11 @@ export const buttonVariants = cva(
     variants: {
       variant: {
         primary: "bg-ad-navy text-white hover:bg-ad-navy-deep",
-        accent: "bg-ad-accent text-white hover:brightness-95",
+        accent: "bg-ad-orange text-white hover:bg-ad-orange-dark",
         dark: "bg-ad-navy text-white hover:bg-ad-navy-deep",
         outline: "border border-ad-border text-ad-ink hover:bg-ad-surface",
         onDark: "bg-white text-ad-navy hover:bg-white/90",
-        onDarkAccent: "bg-ad-accent text-white hover:brightness-95",
+        onDarkAccent: "bg-ad-orange text-white hover:bg-ad-orange-dark",
         onDarkOutline: "border border-ad-border-dark text-white hover:bg-white/10",
       },
       size: {

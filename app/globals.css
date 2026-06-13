@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  AusDilaps design system — hybrid: light editorial base + navy bands.
-  Brand from the FY25/26 Capability Statement: navy primary, warm
-  orange→amber gradient accent, amber highlights. Specialist Building Inspections.
+  AusDilaps design system — derived from the logo.
+  Steel blue (towers + "DILAPS") = brand colour. Charcoal ("AUS" + tagline) = dark.
+  Light editorial base; clean, engineering-corporate.
 */
 @theme inline {
   --color-background: var(--background);
@@ -29,19 +29,24 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
-  /* AusDilaps brand */
-  --color-ad-navy: #0f1e33;          /* primary dark band */
-  --color-ad-navy-deep: #0a1626;     /* deepest band / footer */
-  --color-ad-ink: #16222e;           /* headings + body on light */
-  --color-ad-ink-deep: #0a1626;      /* alias kept for back-compat */
-  --color-ad-accent: #ef5b2b;        /* warm orange (accent start) */
-  --color-ad-accent-2: #f5a623;      /* amber (accent end / highlight) */
-  --color-ad-blue: #2f6f9f;          /* steel blue (logo) — links/secondary */
-  --color-ad-surface: #f1f2f4;       /* light grey alt section bg */
-  --color-ad-muted: #5b6b77;         /* muted body on light */
+  /* AusDilaps brand — from the logo */
+  --color-ad-steel: #46688a;         /* logo steel blue — brand */
+  --color-ad-steel-dark: #38536f;    /* hover / deeper */
+  --color-ad-steel-light: #6d90b4;   /* light steel — on dark, gradients */
+  --color-ad-accent: #46688a;        /* accent = the brand steel blue */
+  --color-ad-accent-2: #6d90b4;      /* secondary steel highlight */
+  --color-ad-orange: #e8642a;        /* conversion accent (energy) — from Capability Statement */
+  --color-ad-orange-dark: #cf5423;
+  --color-ad-blue: #46688a;          /* alias kept for components */
+  --color-ad-ink: #2f343a;           /* charcoal — headings + body */
+  --color-ad-navy: #2e3338;          /* charcoal dark band */
+  --color-ad-navy-deep: #23272b;     /* deepest band / footer */
+  --color-ad-ink-deep: #23272b;      /* alias kept */
+  --color-ad-surface: #f3f4f5;       /* light grey alt section bg */
+  --color-ad-muted: #5b6570;         /* muted body on light */
   --color-ad-on-dark: #ffffff;
   --color-ad-on-dark-muted: rgba(255, 255, 255, 0.7);
-  --color-ad-border: rgba(16, 34, 51, 0.1);
+  --color-ad-border: rgba(47, 52, 58, 0.12);
   --color-ad-border-dark: rgba(255, 255, 255, 0.14);
 
   --font-sans: var(--font-inter);
@@ -55,23 +60,23 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #16222e;
+  --foreground: #2f343a;
   --card: #ffffff;
-  --card-foreground: #16222e;
+  --card-foreground: #2f343a;
   --popover: #ffffff;
-  --popover-foreground: #16222e;
-  --primary: #0f1e33;
+  --popover-foreground: #2f343a;
+  --primary: #46688a;
   --primary-foreground: #ffffff;
-  --secondary: #f1f2f4;
-  --secondary-foreground: #16222e;
-  --muted: #f1f2f4;
-  --muted-foreground: #5b6b77;
-  --accent: #ef5b2b;
+  --secondary: #f3f4f5;
+  --secondary-foreground: #2f343a;
+  --muted: #f3f4f5;
+  --muted-foreground: #5b6570;
+  --accent: #46688a;
   --accent-foreground: #ffffff;
   --destructive: #dc2626;
-  --border: rgba(16, 34, 51, 0.1);
-  --input: rgba(16, 34, 51, 0.14);
-  --ring: #ef5b2b;
+  --border: rgba(47, 52, 58, 0.12);
+  --input: rgba(47, 52, 58, 0.16);
+  --ring: #46688a;
   --radius: 0.625rem;
 }
 
@@ -92,16 +97,16 @@
   }
 }
 
-/* Warm orange→amber accent rule — the brand signature (matches the Capability Statement) */
+/* Steel accent rule — brand signature */
 .rule-accent {
   height: 2px;
-  background: linear-gradient(90deg, var(--color-ad-accent), var(--color-ad-accent-2));
+  background: linear-gradient(90deg, var(--color-ad-steel), var(--color-ad-steel-light));
   border-radius: 2px;
 }
 .rule-hairline { height: 1px; background: var(--color-ad-border); }
 .rule-hairline-dark { height: 1px; background: var(--color-ad-border-dark); }
 
-/* Faint blueprint grid for navy bands */
+/* Faint blueprint grid for charcoal bands */
 .blueprint-grid {
   background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),

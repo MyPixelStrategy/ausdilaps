@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "./container";
 import { SITE } from "@/lib/site";
 
@@ -33,10 +34,13 @@ export function SiteFooter() {
       <Container className="py-16">
         <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
           <div>
-            <div className="font-heading text-xl font-bold">AusDilaps</div>
-            <p className="mt-1 text-xs uppercase tracking-[0.16em] text-ad-on-dark-muted">
-              {SITE.descriptor}
-            </p>
+            <Image
+              src="/logo/ad-logo-white.png"
+              alt="AusDilaps — Specialist Building Inspections"
+              width={640}
+              height={236}
+              className="h-10 w-auto"
+            />
             <p className="mt-4 max-w-xs text-sm text-ad-on-dark-muted">
               Pre- and post-construction building condition reports that hold up when
               a damage claim is made. Compliant with {SITE.standard}.

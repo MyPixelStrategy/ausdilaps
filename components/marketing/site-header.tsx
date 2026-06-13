@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Container } from "./container";
 import { Button } from "@/components/ui/button";
 import { NAV, SITE } from "@/lib/site";
@@ -7,11 +8,15 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-ad-border bg-white/85 backdrop-blur-md">
       <Container className="flex h-16 items-center justify-between">
-        <Link
-          href="/"
-          className="font-heading text-lg font-bold tracking-tight text-ad-ink"
-        >
-          Aus<span className="text-ad-blue">Dilaps</span>
+        <Link href="/" className="flex items-center" aria-label="AusDilaps home">
+          <Image
+            src="/logo/ad-logo.png"
+            alt="AusDilaps — Specialist Building Inspections"
+            width={640}
+            height={236}
+            priority
+            className="h-9 w-auto"
+          />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
