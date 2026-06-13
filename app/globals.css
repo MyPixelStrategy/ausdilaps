@@ -1,0 +1,94 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  AusDilaps design system.
+  NOTE: these tokens are a sane LIGHT, engineering-clean starting point.
+  Exact palette / type scale / spacing are refined from the Construktion X
+  Figma file via Dev Mode MCP before any marketing page is built.
+*/
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  /* AusDilaps brand tokens (placeholder — refined from Figma) */
+  --color-ad-blue: #2293d7;
+  --color-ad-blue-dark: #1b6fa3;
+  --color-ad-ink: #0e1a24;
+  --color-ad-surface: #f5f8fa;
+  --color-ad-muted: #5b6b77;
+  --color-ad-border: rgba(14, 26, 36, 0.1);
+
+  --font-sans: var(--font-inter);
+  --font-heading: var(--font-space-grotesk);
+
+  /* Low radius — a drafted, precise, engineering feel */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: #0e1a24;
+  --card: #ffffff;
+  --card-foreground: #0e1a24;
+  --popover: #ffffff;
+  --popover-foreground: #0e1a24;
+  --primary: #2293d7;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f8fa;
+  --secondary-foreground: #0e1a24;
+  --muted: #f5f8fa;
+  --muted-foreground: #5b6b77;
+  --accent: #2293d7;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --border: rgba(14, 26, 36, 0.1);
+  --input: rgba(14, 26, 36, 0.14);
+  --ring: #2293d7;
+  --radius: 0.25rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  html {
+    @apply font-sans;
+    scroll-behavior: smooth;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-space-grotesk), var(--font-sans);
+    @apply font-semibold tracking-tight;
+  }
+}
+
+/* Blueprint hairline — thin 1px rule used as a deliberate engineering motif */
+.rule-hairline {
+  height: 1px;
+  background: var(--color-ad-border);
+}
