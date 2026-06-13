@@ -41,3 +41,6 @@ next-env.d.ts
 
 # old WordPress site — kept locally as read-only reference, never committed/deployed
 /20260616-AusDilaps-WordPress/
+
+# design reference scratch (Figma exports, screenshots) — not part of the site
+/design-refs/

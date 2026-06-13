@@ -5,10 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
-  AusDilaps design system.
-  NOTE: these tokens are a sane LIGHT, engineering-clean starting point.
-  Exact palette / type scale / spacing are refined from the Construktion X
-  Figma file via Dev Mode MCP before any marketing page is built.
+  AusDilaps design system — hybrid: light editorial base + navy bands.
+  Brand from the FY25/26 Capability Statement: navy primary, warm
+  orange→amber gradient accent, amber highlights. Specialist Building Inspections.
 */
 @theme inline {
   --color-background: var(--background);
@@ -30,44 +29,50 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
 
-  /* AusDilaps brand tokens (placeholder — refined from Figma) */
-  --color-ad-blue: #2293d7;
-  --color-ad-blue-dark: #1b6fa3;
-  --color-ad-ink: #0e1a24;
-  --color-ad-surface: #f5f8fa;
-  --color-ad-muted: #5b6b77;
-  --color-ad-border: rgba(14, 26, 36, 0.1);
+  /* AusDilaps brand */
+  --color-ad-navy: #0f1e33;          /* primary dark band */
+  --color-ad-navy-deep: #0a1626;     /* deepest band / footer */
+  --color-ad-ink: #16222e;           /* headings + body on light */
+  --color-ad-ink-deep: #0a1626;      /* alias kept for back-compat */
+  --color-ad-accent: #ef5b2b;        /* warm orange (accent start) */
+  --color-ad-accent-2: #f5a623;      /* amber (accent end / highlight) */
+  --color-ad-blue: #2f6f9f;          /* steel blue (logo) — links/secondary */
+  --color-ad-surface: #f1f2f4;       /* light grey alt section bg */
+  --color-ad-muted: #5b6b77;         /* muted body on light */
+  --color-ad-on-dark: #ffffff;
+  --color-ad-on-dark-muted: rgba(255, 255, 255, 0.7);
+  --color-ad-border: rgba(16, 34, 51, 0.1);
+  --color-ad-border-dark: rgba(255, 255, 255, 0.14);
 
   --font-sans: var(--font-inter);
   --font-heading: var(--font-space-grotesk);
 
-  /* Low radius — a drafted, precise, engineering feel */
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-sm: 0.375rem;
+  --radius-md: 0.625rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
 }
 
 :root {
   --background: #ffffff;
-  --foreground: #0e1a24;
+  --foreground: #16222e;
   --card: #ffffff;
-  --card-foreground: #0e1a24;
+  --card-foreground: #16222e;
   --popover: #ffffff;
-  --popover-foreground: #0e1a24;
-  --primary: #2293d7;
+  --popover-foreground: #16222e;
+  --primary: #0f1e33;
   --primary-foreground: #ffffff;
-  --secondary: #f5f8fa;
-  --secondary-foreground: #0e1a24;
-  --muted: #f5f8fa;
+  --secondary: #f1f2f4;
+  --secondary-foreground: #16222e;
+  --muted: #f1f2f4;
   --muted-foreground: #5b6b77;
-  --accent: #2293d7;
+  --accent: #ef5b2b;
   --accent-foreground: #ffffff;
   --destructive: #dc2626;
-  --border: rgba(14, 26, 36, 0.1);
-  --input: rgba(14, 26, 36, 0.14);
-  --ring: #2293d7;
-  --radius: 0.25rem;
+  --border: rgba(16, 34, 51, 0.1);
+  --input: rgba(16, 34, 51, 0.14);
+  --ring: #ef5b2b;
+  --radius: 0.625rem;
 }
 
 @layer base {
@@ -87,8 +92,19 @@
   }
 }
 
-/* Blueprint hairline — thin 1px rule used as a deliberate engineering motif */
-.rule-hairline {
-  height: 1px;
-  background: var(--color-ad-border);
+/* Warm orange→amber accent rule — the brand signature (matches the Capability Statement) */
+.rule-accent {
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-ad-accent), var(--color-ad-accent-2));
+  border-radius: 2px;
+}
+.rule-hairline { height: 1px; background: var(--color-ad-border); }
+.rule-hairline-dark { height: 1px; background: var(--color-ad-border-dark); }
+
+/* Faint blueprint grid for navy bands */
+.blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
