@@ -33,3 +33,11 @@ Grounded target list for the expansive content/news engine. Tie every topic back
 - The case for compulsory dilapidation reporting (the NSW model), state-by-state requirements, AS 4349.0, evidence standards
 
 > When building the News engine, run a grounded research pass (verify current project status/dates) before publishing — keep it factual.
+
+## Sample-report hosting (action required before domain cutover)
+The `/dilapidation-reports/samples` page links sample PDFs at their **live WordPress URLs** (`https://ausdilaps.com.au/wp-content/uploads/...`) as an interim. These are ~164MB total — too heavy to commit to git, and v1 has no R2/storage.
+**The old WP site will be taken down**, so a permanent home is needed. Options for the future solution:
+- Host the curated sample PDFs in Supabase Storage (a public bucket) and point the samples page at those URLs; OR
+- Commit compressed/optimised versions (ghostscript downsample to <2MB each) into `public/samples/`; OR
+- Gate the full sample pack behind the quote form (lead capture) and host via storage.
+Until then, the samples page links the live URLs. **Re-point these links before cutover** (otherwise they 404 once `/wp-content/uploads/` no longer exists on the new domain).

@@ -3,7 +3,9 @@ import { Container } from "@/components/marketing/container";
 import { Eyebrow } from "@/components/marketing/eyebrow";
 import { Breadcrumbs } from "@/components/marketing/breadcrumbs";
 import { FaqSection } from "@/components/marketing/faq-accordion";
+import { RelatedLinks, type RelatedLink } from "@/components/marketing/related-links";
 import { CtaBand } from "@/components/marketing/cta-band";
+import { LOCATIONS } from "@/data/locations";
 import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/seo/json-ld";
 import { SITE, PROCESS, CAPTURE_METHODS, QUOTE_HREF } from "@/lib/site";
@@ -187,6 +189,26 @@ export default function DilapidationReportsPage() {
 
       {/* FAQ */}
       <FaqSection items={dilapFaq.items} heading="Dilapidation reports, answered." />
+
+      {/* Locations + samples */}
+      <RelatedLinks
+        eyebrow="Explore"
+        heading="Dilapidation reports near you."
+        links={
+          [
+            {
+              label: "Sample reports",
+              href: "/dilapidation-reports/samples",
+              description: "See real example reports across every capture type.",
+            },
+            ...LOCATIONS.map((l) => ({
+              label: `Dilapidation Reports ${l.city}`,
+              href: `/dilapidation-reports/${l.slug}`,
+              description: l.region,
+            })),
+          ] satisfies RelatedLink[]
+        }
+      />
 
       {/* CTA */}
       <CtaBand
