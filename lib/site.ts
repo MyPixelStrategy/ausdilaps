@@ -93,12 +93,12 @@ export const TEAM = [
   { name: "Martin Weng", role: "Structural Engineer" },
 ];
 
-export type Project = { name: string; sector: string; image: string };
+export type Project = { name: string; sector: string; image: string; slug: string };
 
 export const TIER1_PROJECTS: Project[] = [
-  { name: "Queens Wharf", sector: "Commercial", image: "/projects/queens-wharf.jpg" },
-  { name: "NorthConnex", sector: "Infrastructure", image: "/projects/northconnex.jpg" },
-  { name: "Brisbane Airport", sector: "Aviation", image: "/projects/brisbane-airport.jpg" },
-  { name: "North West Rail Link", sector: "Rail", image: "/projects/north-west-rail-link.jpg" },
-  { name: "Barangaroo", sector: "Commercial", image: "/projects/barangaroo.jpg" },
+  { name: "Queens Wharf", sector: "Commercial", image: "/projects/queens-wharf.jpg", slug: "queens-wharf-brisbane" },
+  { name: "NorthConnex", sector: "Infrastructure", image: "/projects/northconnex.jpg", slug: "northconnex" },
+  { name: "Brisbane Airport", sector: "Aviation", image: "/projects/brisbane-airport.jpg", slug: "brisbane-airport" },
+  { name: "North West Rail Link", sector: "Rail", image: "/projects/north-west-rail-link.jpg", slug: "northwest-rail-link" },
+  { name: "Barangaroo", sector: "Commercial", image: "/projects/barangaroo.jpg", slug: "barangaroo-south" },
 ];

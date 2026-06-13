@@ -219,15 +219,24 @@ function Projects() {
   return (
     <section id="projects" className="scroll-mt-20 bg-ad-surface py-20 lg:py-28">
       <Container>
-        <div className="max-w-2xl">
-          <Eyebrow className="text-ad-accent">Proof</Eyebrow>
-          <h2 className="mt-5 font-heading text-3xl font-semibold tracking-tight text-ad-ink sm:text-4xl">
-            The projects that built our reputation.
-          </h2>
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div className="max-w-2xl">
+            <Eyebrow className="text-ad-accent">Proof</Eyebrow>
+            <h2 className="mt-5 font-heading text-3xl font-semibold tracking-tight text-ad-ink sm:text-4xl">
+              The projects that built our reputation.
+            </h2>
+          </div>
+          <Link href="/portfolio" className="text-sm font-medium text-ad-accent hover:brightness-90">
+            View full portfolio →
+          </Link>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {featured.map((p) => (
-            <div key={p.name} className="group overflow-hidden rounded-xl border border-ad-border bg-white">
+            <Link
+              key={p.name}
+              href={`/portfolio/${p.slug}`}
+              className="group overflow-hidden rounded-xl border border-ad-border bg-white transition-colors hover:border-ad-accent/40"
+            >
               <div className="relative aspect-[3/2] overflow-hidden">
                 <Image
                   src={p.image}
@@ -239,9 +248,9 @@ function Projects() {
               </div>
               <div className="p-6">
                 <div className="text-xs font-medium uppercase tracking-wider text-ad-accent">{p.sector}</div>
-                <h3 className="mt-2 font-heading text-lg font-semibold text-ad-ink">{p.name}</h3>
+                <h3 className="mt-2 font-heading text-lg font-semibold text-ad-ink group-hover:text-ad-accent">{p.name}</h3>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </Container>
@@ -262,9 +271,13 @@ function Experience() {
         </div>
         <div className="mt-12 grid gap-6 lg:grid-cols-3">
           {CASE_STUDIES.map((c) => (
-            <div key={c.slug} className="flex flex-col rounded-xl border border-ad-border bg-white p-7">
+            <Link
+              key={c.slug}
+              href={`/portfolio/${c.slug}`}
+              className="group flex flex-col rounded-xl border border-ad-border bg-white p-7 transition-colors hover:border-ad-accent/40"
+            >
               <div className="font-heading text-2xl font-bold text-ad-ink">{c.value}</div>
-              <h3 className="mt-3 font-heading text-lg font-semibold text-ad-ink">{c.project}</h3>
+              <h3 className="mt-3 font-heading text-lg font-semibold text-ad-ink group-hover:text-ad-accent">{c.project}</h3>
               <p className="mt-1 text-sm text-ad-muted">
                 {c.client} · {c.location}
               </p>
@@ -277,7 +290,7 @@ function Experience() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </Link>
           ))}
         </div>
       </Container>
