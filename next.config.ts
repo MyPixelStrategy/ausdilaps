@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { REDIRECTS } from "./data/redirects";
 
 const nextConfig: NextConfig = {
   images: {
@@ -9,8 +10,9 @@ const nextConfig: NextConfig = {
       // { protocol: "https", hostname: "<account>.r2.cloudflarestorage.com" },
     ],
   },
-  // The old WordPress site uses date-based permalinks with no redirects.
-  // The full 301 map (data/redirects.ts) is wired into redirects() during the SEO phase.
+  async redirects() {
+    return REDIRECTS;
+  },
 };
 
 export default nextConfig;

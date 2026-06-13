@@ -12,11 +12,11 @@ export const SITE = {
 };
 
 export const NAV = [
-  { label: "Services", href: "/#services" },
-  { label: "Process", href: "/#process" },
-  { label: "Projects", href: "/#projects" },
+  { label: "Dilapidation Reports", href: "/dilapidation-reports" },
+  { label: "Services", href: "/our-services" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Insights", href: "/insights" },
   { label: "FAQ", href: "/faq" },
-  { label: "About", href: "/#about" },
 ];
 
 /** Where every "Request a Quote" CTA points — the dedicated lead form. */

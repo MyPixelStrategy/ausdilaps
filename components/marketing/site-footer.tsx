@@ -49,19 +49,20 @@ export function SiteFooter() {
           <FooterCol
             title="Services"
             links={[
-              ["Dilapidation Reports", "#services"],
-              ["Structural Integrity (SIA)", "#services"],
-              ["Defect Origin (DOA)", "#services"],
-              ["Defect Comparison (DCA)", "#services"],
+              ["Dilapidation Reports", "/dilapidation-reports"],
+              ["Commercial Dilapidation", "/our-services/commercial-dilapidation-reports"],
+              ["Aerial Drone Surveys", "/our-services/aerial-drone-surveys"],
+              ["All services", "/our-services"],
+              ["Sample reports", "/dilapidation-reports/samples"],
             ]}
           />
           <FooterCol
             title="Company"
             links={[
-              ["Projects", "#projects"],
-              ["Process", "#process"],
-              ["About", "#about"],
-              ["Request a Quote", "#contact"],
+              ["Portfolio", "/portfolio"],
+              ["Insights", "/insights"],
+              ["FAQ", "/faq"],
+              ["Request a Quote", "/quote"],
             ]}
           />
           <div>
