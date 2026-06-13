@@ -12,10 +12,11 @@ export const SITE = {
 };
 
 export const NAV = [
-  { label: "Services", href: "#services" },
-  { label: "Process", href: "#process" },
-  { label: "Projects", href: "#projects" },
-  { label: "About", href: "#about" },
+  { label: "Services", href: "/#services" },
+  { label: "Process", href: "/#process" },
+  { label: "Projects", href: "/#projects" },
+  { label: "FAQ", href: "/faq" },
+  { label: "About", href: "/#about" },
 ];
 
 /** Real operating stats (Capability Statement, "Who Are We?"). */

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import { JsonLd } from "@/components/seo/json-ld";
+import { organizationSchema, localBusinessSchema } from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,7 +31,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-AU" className={`${inter.variable} ${spaceGrotesk.variable}`}>
-      <body>{children}</body>
+      <body>
+        <JsonLd data={[organizationSchema(), localBusinessSchema()]} />
+        {children}
+      </body>
     </html>
   );
 }
