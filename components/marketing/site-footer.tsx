@@ -2,6 +2,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { Container } from "./container";
 import { SITE } from "@/lib/site";
+import {
+  SERVICES_PILLAR,
+  SERVICES_DILAPIDATION,
+  SERVICES_SPECIALIST,
+  type NavLink,
+} from "@/lib/nav";
+
+const toPairs = (links: NavLink[]): [string, string][] =>
+  links.map((l) => [l.label, l.href] as [string, string]);
+
+const DILAPIDATION_LINKS: [string, string][] = [
+  [SERVICES_PILLAR.label, SERVICES_PILLAR.href],
+  ...toPairs(SERVICES_DILAPIDATION),
+  ["Sample reports", "/dilapidation-reports/samples"],
+];
+
+const SPECIALIST_LINKS: [string, string][] = [
+  ...toPairs(SERVICES_SPECIALIST),
+  ["All services", "/our-services"],
+];
 
 function FooterCol({
   title,
@@ -32,7 +52,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-ad-navy-deep text-ad-on-dark">
       <Container className="py-16">
-        <div className="grid gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr_1fr_1fr]">
           <div>
             <Image
               src="/logo/ad-logo-white.png"
@@ -46,16 +66,8 @@ export function SiteFooter() {
               a damage claim is made. Compliant with {SITE.standard}.
             </p>
           </div>
-          <FooterCol
-            title="Services"
-            links={[
-              ["Dilapidation Reports", "/dilapidation-reports"],
-              ["Commercial Dilapidation", "/our-services/commercial-dilapidation-reports"],
-              ["Aerial Drone Surveys", "/our-services/aerial-drone-surveys"],
-              ["All services", "/our-services"],
-              ["Sample reports", "/dilapidation-reports/samples"],
-            ]}
-          />
+          <FooterCol title="Dilapidation" links={DILAPIDATION_LINKS} />
+          <FooterCol title="Specialist" links={SPECIALIST_LINKS} />
           <FooterCol
             title="Company"
             links={[

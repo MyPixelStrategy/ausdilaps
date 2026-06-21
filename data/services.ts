@@ -13,6 +13,8 @@ export type Service = {
   metaDescription: string;
   h1: string;
   eyebrow: string;
+  /** short label for nav menus / footer (falls back to h1) */
+  navLabel?: string;
   /** one-line summary for index cards + related-links descriptions */
   summary: string;
   /** answer-first lead paragraph */
@@ -46,6 +48,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Independent commercial dilapidation reports that document the pre- and post-construction condition of council-owned and adjoining assets — protecting your investment and your bond. Backed by structural engineers.",
     h1: "Commercial Dilapidation Reports",
     eyebrow: "Commercial Dilapidation",
+    navLabel: "Commercial",
     summary: "Council-ready pre- and post-construction condition reports for commercial property.",
     intro:
       "Owning a commercial property is a significant investment. Before construction or development begins, a commercial dilapidation report documents the existing condition of council-owned and adjoining assets — mitigating the risk of damage claims and protecting your bond.",
@@ -114,6 +117,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Residential dilapidation reports for builds, renovations and demolitions. Document the condition of neighbour- and council-owned assets to mitigate claims — from a team of structural engineers and building inspectors.",
     h1: "Residential Dilapidation Reports",
     eyebrow: "Residential Dilapidation",
+    navLabel: "Residential",
     summary: "Dilapidation reports for residential builds, renovations and demolitions.",
     intro:
       "Land and housing are among the most stable and lucrative personal assets — so when construction work is planned, you don't want to cut corners on having the site correctly evaluated for dilapidation before any work begins.",
@@ -158,6 +162,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Industrial dilapidation reports for factories, warehouses, pipelines and railway sites. A two-step pre- and post-construction process that verifies conditions and mitigates damage claims.",
     h1: "Industrial Dilapidation Reports",
     eyebrow: "Industrial Dilapidation",
+    navLabel: "Industrial",
     summary: "Condition reporting for factories, warehouses, pipelines and industrial sites.",
     intro:
       "Construction on an industrial property is a big decision and a substantial financial investment. With lawsuits and litigation growing year on year, many councils now require dilapidation reports for industrial construction projects — so it pays to have the work carried out by specialised professionals.",
@@ -208,6 +213,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Structural engineering from AusDilaps — concrete, steel and timber design, structural design certificates, existing-structure reviews, and excavation and demolition assessments. No project too small.",
     h1: "Structural Engineering",
     eyebrow: "Structural Engineering",
+    navLabel: "Structural Engineering",
     summary: "Chartered structural design, certificates and existing-structure reviews.",
     intro:
       "Successful structural engineering relies on understanding the client's needs and applying the latest design technology in a way that enhances a structure's functionality and look — without onerous financial commitments or inflexible building use. We deliver it from simple wall removals to the detailed design of high-rise buildings.",
@@ -255,6 +261,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Aerial drone surveys from AusDilaps — UAV site inspections, 3D mapping and photogrammetry accurate to 10–20mm. Solar panel thermography, mine-site volumetrics, roof and façade inspection, and environmental mapping.",
     h1: "Aerial Drone Surveys",
     eyebrow: "Aerial Drone Surveys",
+    navLabel: "Aerial Drone Surveys",
     summary: "UAV survey, mapping and inspection — accurate to 10–20mm.",
     intro:
       "Drone surveying — also known as aerial surveying — uses unmanned aerial vehicles (UAVs) to gather data from the air. With its ability to capture high-resolution imagery and 3D models, drone surveying has revolutionised how industries approach site inspections, mapping and land surveying.",
@@ -328,6 +335,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Noise and vibration monitoring across Australia. Baseline site analysis plus real-time data capture to keep construction and industrial works compliant and protect nearby residents, wildlife and structures.",
     h1: "Noise & Vibration Monitoring Services",
     eyebrow: "Noise & Vibration",
+    navLabel: "Noise & Vibration",
     summary: "Baseline and real-time monitoring to keep works compliant.",
     intro:
       "Construction and industrial activity generates noise and vibration that can disrupt communities, wildlife and the environment. AusDilaps is your trusted partner in noise and vibration monitoring — helping you remain compliant while keeping the peace around your site.",
@@ -396,6 +404,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Defect Origin Assessments from AusDilaps — expert, evidence-based analysis of visible damage to determine what caused a defect, when it likely occurred, and how confidently that conclusion can be drawn.",
     h1: "Defect Origin Assessments (DOA)",
     eyebrow: "Defect Origin Assessments",
+    navLabel: "Defect Origin (DOA)",
     summary: "Evidence-based analysis of what caused a defect, and when.",
     intro:
       "When damage is discovered during or after construction, the stakes are high. Questions about responsibility, timing and liability arise — especially when there's no clear-cut evidence. That's where a Defect Origin Assessment comes in.",
@@ -449,6 +458,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Road condition surveys from AusDilaps — vehicle-mounted video and on-foot high-resolution capture of roughness, rutting and surface texture. Defensible before-and-after reporting for infrastructure, civil and haulage projects.",
     h1: "Highway & Road Reports",
     eyebrow: "Highways & Roads",
+    navLabel: "Highways & Roads",
     summary: "Roughness, rutting and surface condition reports for road and haulage projects.",
     intro:
       "AusDilaps provides detailed road condition assessments tailored to infrastructure, civil and haulage projects. Whether you're documenting a highway before construction begins or need verified data to meet council standards, our reports are built for accountability.",
@@ -505,6 +515,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Structural Integrity Assessments from AusDilaps — evaluate the structural performance and stability of assets using advanced methods, identifying weaknesses or potential failures early for safety, compliance and informed remediation.",
     h1: "Structural Integrity Assessments (SIA)",
     eyebrow: "Structural Integrity",
+    navLabel: "Structural Integrity (SIA)",
     summary: "Evaluate asset performance and stability before it becomes a failure.",
     intro:
       "A Structural Integrity Assessment evaluates the structural performance and stability of an asset using advanced assessment methods — identifying weaknesses or potential failures early to ensure safety, compliance and informed decision-making for asset management and remediation.",
@@ -544,6 +555,7 @@ export const SERVICES_CONTENT: Service[] = [
       "Defect Comparison Assessments from AusDilaps — compare pre- and post-construction asset conditions to identify changes, assess construction impacts, and provide independent, defensible reporting for claims management.",
     h1: "Defect Comparison Assessments (DCA)",
     eyebrow: "Defect Comparison",
+    navLabel: "Defect Comparison (DCA)",
     summary: "Pre- vs post-construction comparison that isolates what changed.",
     intro:
       "A Defect Comparison Assessment compares pre- and post-construction asset conditions to identify changes, assess potential construction impacts, and provide independent, defensible reporting that supports claims management and transparent communication between all stakeholders.",

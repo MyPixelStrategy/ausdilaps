@@ -11,9 +11,11 @@ export const SITE = {
   standard: "AS 4349.0",
 };
 
-export const NAV = [
+export type NavItem = { label: string; href: string; menu?: "services" };
+
+export const NAV: NavItem[] = [
   { label: "Dilapidation Reports", href: "/dilapidation-reports" },
-  { label: "Services", href: "/our-services" },
+  { label: "Services", href: "/our-services", menu: "services" },
   { label: "Portfolio", href: "/portfolio" },
   { label: "Insights", href: "/insights" },
   { label: "FAQ", href: "/faq" },

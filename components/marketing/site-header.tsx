@@ -3,6 +3,7 @@ import Image from "next/image";
 import { Container } from "./container";
 import { Button } from "@/components/ui/button";
 import { MobileNav } from "./mobile-nav";
+import { ServicesMenu } from "./services-menu";
 import { NAV, SITE, QUOTE_HREF } from "@/lib/site";
 
 export function SiteHeader() {
@@ -21,15 +22,19 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-ad-muted transition-colors hover:text-ad-ink"
-            >
-              {item.label}
-            </Link>
-          ))}
+          {NAV.map((item) =>
+            item.menu === "services" ? (
+              <ServicesMenu key={item.href} />
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-ad-muted transition-colors hover:text-ad-ink"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
         </nav>
 
         <div className="flex items-center gap-3">

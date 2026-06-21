@@ -5,7 +5,8 @@ import { Eyebrow } from "@/components/marketing/eyebrow";
 import { PageHero } from "@/components/marketing/page-hero";
 import { CtaBand } from "@/components/marketing/cta-band";
 import { JsonLd } from "@/components/seo/json-ld";
-import { SERVICES_CONTENT } from "@/data/services";
+import { SERVICES_CONTENT, SERVICE_BY_SLUG, type Service } from "@/data/services";
+import { DILAPIDATION_SLUGS, SPECIALIST_SLUGS } from "@/lib/nav";
 import { breadcrumbSchema, itemListSchema } from "@/lib/seo";
 
 const CRUMBS = [
@@ -13,12 +14,39 @@ const CRUMBS = [
   { name: "Services", path: "/our-services" },
 ];
 
+const DILAPIDATION = DILAPIDATION_SLUGS.map((slug) => SERVICE_BY_SLUG[slug]);
+const SPECIALIST = SPECIALIST_SLUGS.map((slug) => SERVICE_BY_SLUG[slug]);
+
 export const metadata: Metadata = {
   title: "Our Services | Dilapidation, Structural & Specialist Building Inspections",
   description:
     "AusDilaps' specialist services — dilapidation reports (commercial, residential, industrial), structural engineering, aerial drone surveys, noise & vibration monitoring, defect assessments and road condition reports.",
   alternates: { canonical: "/our-services" },
 };
+
+function ServiceCard({ service, tone = "white" }: { service: Service; tone?: "white" | "surface" }) {
+  return (
+    <Link
+      href={`/our-services/${service.slug}`}
+      className={`group flex flex-col rounded-xl border border-ad-border p-7 transition-colors hover:border-ad-accent/40 ${
+        tone === "surface" ? "bg-ad-surface" : "bg-white"
+      }`}
+    >
+      <span
+        className={`self-start rounded-full px-3 py-1 text-xs font-medium uppercase tracking-wider text-ad-muted ${
+          tone === "surface" ? "bg-white" : "bg-ad-surface"
+        }`}
+      >
+        {service.eyebrow}
+      </span>
+      <h3 className="mt-5 font-heading text-lg font-semibold text-ad-ink group-hover:text-ad-accent">
+        {service.h1}
+      </h3>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-ad-muted">{service.summary}</p>
+      <span className="mt-6 text-sm font-medium text-ad-accent">Learn more →</span>
+    </Link>
+  );
+}
 
 export default function ServicesIndexPage() {
   return (
@@ -40,7 +68,7 @@ export default function ServicesIndexPage() {
         intro="Every service is framed under one specialism — dilapidation. From a single residential build to billion-dollar infrastructure, we match the right method and the right engineer to the asset, so the record holds up when a claim is made."
       />
 
-      {/* Flagship pillar */}
+      {/* Flagship pillar + dilapidation by sector */}
       <section className="py-20 lg:py-24">
         <Container>
           <Link
@@ -68,34 +96,34 @@ export default function ServicesIndexPage() {
               </div>
             </div>
           </Link>
+
+          <div className="mt-12">
+            <Eyebrow className="text-ad-accent">Dilapidation by sector</Eyebrow>
+            <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {DILAPIDATION.map((s) => (
+                <ServiceCard key={s.slug} service={s} tone="surface" />
+              ))}
+            </div>
+          </div>
         </Container>
       </section>
 
-      {/* Service grid */}
+      {/* Specialist services */}
       <section className="bg-ad-surface py-20 lg:py-24">
         <Container>
           <div className="max-w-2xl">
-            <Eyebrow className="text-ad-accent">The full suite</Eyebrow>
+            <Eyebrow className="text-ad-accent">Specialist services</Eyebrow>
             <h2 className="mt-5 font-heading text-3xl font-semibold tracking-tight text-ad-ink">
-              Specialist services across every asset.
+              Engineering depth beyond the baseline.
             </h2>
+            <p className="mt-4 text-ad-muted">
+              The assessments, surveys and engineering that surround a dilapidation programme — each
+              delivered by the same chartered team.
+            </p>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES_CONTENT.map((s) => (
-              <Link
-                key={s.slug}
-                href={`/our-services/${s.slug}`}
-                className="group flex flex-col rounded-xl border border-ad-border bg-white p-7 transition-colors hover:border-ad-accent/40"
-              >
-                <span className="self-start rounded-full bg-ad-surface px-3 py-1 text-xs font-medium uppercase tracking-wider text-ad-muted">
-                  {s.eyebrow}
-                </span>
-                <h3 className="mt-5 font-heading text-lg font-semibold text-ad-ink group-hover:text-ad-accent">
-                  {s.h1}
-                </h3>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-ad-muted">{s.summary}</p>
-                <span className="mt-6 text-sm font-medium text-ad-accent">Learn more →</span>
-              </Link>
+            {SPECIALIST.map((s) => (
+              <ServiceCard key={s.slug} service={s} tone="white" />
             ))}
           </div>
         </Container>
