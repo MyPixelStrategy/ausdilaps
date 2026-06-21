@@ -31,13 +31,20 @@ type ButtonProps = VariantProps<typeof buttonVariants> & {
   children: React.ReactNode;
   type?: "button" | "submit";
   onClick?: () => void;
+  /** open the href in a new tab (for PDFs / external links) */
+  newTab?: boolean;
 };
 
-export function Button({ variant, size, className, href, children, type, onClick }: ButtonProps) {
+export function Button({ variant, size, className, href, children, type, onClick, newTab }: ButtonProps) {
   const cls = cn(buttonVariants({ variant, size }), className);
   if (href) {
     return (
-      <Link href={href} onClick={onClick} className={cls}>
+      <Link
+        href={href}
+        onClick={onClick}
+        className={cls}
+        {...(newTab ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      >
         {children}
       </Link>
     );

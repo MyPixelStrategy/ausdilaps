@@ -3,7 +3,7 @@ import { Container } from "./container";
 import { Eyebrow } from "./eyebrow";
 import { Breadcrumbs, type Crumb } from "./breadcrumbs";
 import { Button } from "@/components/ui/button";
-import { QUOTE_HREF } from "@/lib/site";
+import { QUOTE_HREF, CAPABILITY_HREF } from "@/lib/site";
 
 /**
  * Standard interior-page hero: breadcrumbs + eyebrow + h1 + lead + CTAs.
@@ -43,7 +43,7 @@ export function PageHero({
               <Button href={QUOTE_HREF} size="lg" variant="accent">
                 Request a Quote
               </Button>
-              <Button href={QUOTE_HREF} size="lg" variant="outline">
+              <Button href={CAPABILITY_HREF} size="lg" variant="outline" newTab>
                 Download Capability Statement
               </Button>
             </>

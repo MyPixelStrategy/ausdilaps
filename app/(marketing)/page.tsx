@@ -4,7 +4,7 @@ import { Container } from "@/components/marketing/container";
 import { Eyebrow } from "@/components/marketing/eyebrow";
 import { Button } from "@/components/ui/button";
 import { CtaBand } from "@/components/marketing/cta-band";
-import { SITE, STATS, SERVICES, PROCESS, TEAM, TIER1_PROJECTS, QUOTE_HREF } from "@/lib/site";
+import { SITE, STATS, SERVICES, PROCESS, TEAM, TIER1_PROJECTS, QUOTE_HREF, CAPABILITY_HREF } from "@/lib/site";
 import { CASE_STUDIES } from "@/data/case-studies";
 
 export default function HomePage() {
@@ -41,7 +41,7 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button href={QUOTE_HREF} size="lg" variant="accent">Request a Quote</Button>
-            <Button href={QUOTE_HREF} size="lg" variant="outline">
+            <Button href={CAPABILITY_HREF} size="lg" variant="outline" newTab>
               Download Capability Statement
             </Button>
           </div>

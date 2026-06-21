@@ -22,6 +22,9 @@ export const NAV = [
 /** Where every "Request a Quote" CTA points — the dedicated lead form. */
 export const QUOTE_HREF = "/quote";
 
+/** The capability statement PDF (committed to /public). Opens in a new tab. */
+export const CAPABILITY_HREF = "/AusDilaps-Capability-Statement-FY25-26.pdf";
+
 /** Real operating stats (Capability Statement, "Who Are We?"). */
 export const STATS = [
   { value: "1,000+", label: "Surveys delivered per quarter" },

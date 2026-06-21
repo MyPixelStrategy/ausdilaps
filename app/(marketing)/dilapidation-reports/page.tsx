@@ -8,7 +8,7 @@ import { CtaBand } from "@/components/marketing/cta-band";
 import { LOCATIONS } from "@/data/locations";
 import { Button } from "@/components/ui/button";
 import { JsonLd } from "@/components/seo/json-ld";
-import { SITE, PROCESS, CAPTURE_METHODS, QUOTE_HREF } from "@/lib/site";
+import { SITE, PROCESS, CAPTURE_METHODS, QUOTE_HREF, CAPABILITY_HREF } from "@/lib/site";
 import { FAQ } from "@/data/faq";
 import { serviceSchema, howToSchema, faqPageSchema, breadcrumbSchema } from "@/lib/seo";
 
@@ -58,7 +58,7 @@ export default function DilapidationReportsPage() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <Button href={QUOTE_HREF} size="lg" variant="accent">Request a Quote</Button>
-            <Button href={QUOTE_HREF} size="lg" variant="outline">Download Capability Statement</Button>
+            <Button href={CAPABILITY_HREF} size="lg" variant="outline" newTab>Download Capability Statement</Button>
           </div>
         </Container>
       </section>

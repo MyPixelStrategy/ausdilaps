@@ -1,7 +1,7 @@
 import { Container } from "./container";
 import { Eyebrow } from "./eyebrow";
 import { Button } from "@/components/ui/button";
-import { QUOTE_HREF } from "@/lib/site";
+import { QUOTE_HREF, CAPABILITY_HREF } from "@/lib/site";
 
 /**
  * The site-wide conversion band (charcoal + blueprint grid). Always carries
@@ -39,7 +39,7 @@ export function CtaBand({
               Request a Quote
             </Button>
             {secondary && (
-              <Button href={QUOTE_HREF} size="lg" variant="onDarkOutline">
+              <Button href={CAPABILITY_HREF} size="lg" variant="onDarkOutline" newTab>
                 Download Capability Statement
               </Button>
             )}
