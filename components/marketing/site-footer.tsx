@@ -101,7 +101,18 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-2 text-xs text-ad-on-dark-muted sm:flex-row sm:items-center sm:justify-between">
           <p>© 2026 {SITE.legalName} T/A AusDilaps · ABN {SITE.abn}</p>
-          <p>A company of the Urban Pulse group · Professional Indemnity &amp; Public Liability insured</p>
+          <p>
+            A company of the{" "}
+            <a
+              href="https://urbanpulse.com.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="transition-colors hover:text-ad-accent-2"
+            >
+              Urban Pulse group
+            </a>{" "}
+            · Professional Indemnity &amp; Public Liability insured
+          </p>
         </div>
       </Container>
     </footer>
