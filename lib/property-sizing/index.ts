@@ -4,11 +4,16 @@
 
 import type { AuStateCode, ParsedAddress, SizingResult, LotResult } from "./types";
 import { lookupQld } from "./qld";
+import { lookupNsw } from "./nsw";
+import { lookupVic } from "./vic";
 import { estimateBuilding } from "./building";
+import { mapPool } from "@/lib/util/map-pool";
 
 /** States with an automated lot-size source wired up. Grows per the rollout plan. */
 const PROVIDERS: Partial<Record<AuStateCode, (a: ParsedAddress) => Promise<LotResult>>> = {
   QLD: lookupQld,
+  NSW: lookupNsw,
+  VIC: lookupVic,
 };
 
 function displayStreet(addr: ParsedAddress): string {
@@ -61,20 +66,6 @@ async function lookupLot(addr: ParsedAddress): Promise<WorkRow> {
   Object.assign(result, lot);
   result.flags = lot.flags ?? [];
   return { addr, result, lon: _lon, lat: _lat, parcelRings: _parcelRings };
-}
-
-/** Bounded concurrency so we stay polite to the government endpoints. */
-async function mapPool<T, R>(items: T[], limit: number, fn: (t: T) => Promise<R>): Promise<R[]> {
-  const out: R[] = new Array(items.length);
-  let idx = 0;
-  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
-    while (idx < items.length) {
-      const i = idx++;
-      out[i] = await fn(items[i]);
-    }
-  });
-  await Promise.all(workers);
-  return out;
 }
 
 export async function sizeProperties(addresses: ParsedAddress[]): Promise<SizingResult[]> {

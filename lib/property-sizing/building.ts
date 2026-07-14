@@ -1,10 +1,11 @@
-// Building attributes — estimated levels + dwelling floor area, FREE best-effort.
+// Building attributes — estimated levels + ground-floor dwelling area, FREE best-effort.
 // Primary source (Sunshine Coast): Council's LiDAR-derived Building Footprints —
 // real footprint area (m²) + roof height (m). Footprints are filtered to the
 // parcel by centroid so neighbouring buildings don't inflate the total. Storeys
-// = roofHeight ÷ ~3.1. Dwelling GFA ≈ footprint × storeys (detached) or that ÷
-// unit count (strata). Every value carries a confidence % and, when low, a
-// "verify in CoreLogic" flag. Falls back to a lot-coverage estimate off-coverage.
+// = roofHeight ÷ ~3.1. Dwelling area = ground-floor footprint only (not multiplied
+// by storeys) for detached homes, or that footprint ÷ unit count (strata). Every
+// value carries a confidence % and, when low, a "verify in CoreLogic" flag. Falls
+// back to a lot-coverage estimate off-coverage.
 
 import type { AuStateCode } from "./types";
 
@@ -139,7 +140,8 @@ async function queryFootprint(input: BuildingInput): Promise<Footprint | null> {
 }
 
 export async function estimateBuilding(input: BuildingInput): Promise<BuildingEstimate> {
-  const fp = await queryFootprint(input);
+  // Sunshine Coast footprints only cover QLD — skip the round-trip for other states.
+  const fp = input.state === "QLD" ? await queryFootprint(input) : null;
   const strata = input.isUnit || input.unitsOnParcel > 1;
   return strata ? estimateStrata(input, fp) : estimateDetached(input, fp);
 }
@@ -163,7 +165,7 @@ function estimateDetached(input: BuildingInput, fp: Footprint | null): BuildingE
     return blank(["no footprint or lot size — measure manually"]);
   }
 
-  const dwelling = Math.round(footprint * levels);
+  const dwelling = Math.round(footprint);
   const flags = areaConf < 55 ? [`dwelling area estimated (${basis}) — verify (CoreLogic)`] : [];
   return {
     levels,
@@ -184,7 +186,7 @@ function estimateStrata(input: BuildingInput, fp: Footprint | null): BuildingEst
   const units = Math.max(1, input.unitsOnParcel);
 
   const perUnit =
-    input.lotSizeSqm != null ? Math.round((input.lotSizeSqm * COMPLEX_COVERAGE * levels) / units) : null;
+    input.lotSizeSqm != null ? Math.round((input.lotSizeSqm * COMPLEX_COVERAGE) / units) : null;
 
   return {
     levels,

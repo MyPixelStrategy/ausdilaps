@@ -142,7 +142,7 @@ export default function PropertySizingPage() {
         property from free government cadastre data, ready to copy into your quoting sheet.
       </p>
       <p className="mt-2 text-sm text-ad-muted">
-        <span className="font-medium text-ad-ink">Live:</span> QLD lot size.{" "}
+        <span className="font-medium text-ad-ink">Live:</span> QLD, NSW &amp; VIC lot size.{" "}
         <span className="font-medium text-ad-ink">Coming:</span> other states, plus estimated levels and
         dwelling area with confidence scores.
       </p>

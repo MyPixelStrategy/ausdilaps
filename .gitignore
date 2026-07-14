@@ -44,3 +44,6 @@ next-env.d.ts
 
 # design reference scratch (Figma exports, screenshots) — not part of the site
 /design-refs/
+
+# local Claude Code tool settings — machine-specific, not shared
+/.claude/

@@ -3,37 +3,13 @@ import { parseAddressBlock } from "@/lib/property-sizing/parse";
 import { extractAddressesFromImage, ocrConfigured } from "@/lib/property-sizing/ocr";
 import { sizeProperties } from "@/lib/property-sizing";
 import type { ParsedAddress } from "@/lib/property-sizing/types";
-import { createClient } from "@/lib/supabase/server";
+import { isStaff } from "@/lib/auth/is-staff";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
-/**
- * Staff gate. Full admin auth (login UI) lands with the Phase-6 admin backend;
- * until then, set PROPERTY_SIZING_ALLOW_UNAUTHED=true to use the tool locally.
- * When a Supabase session exists, only internal staff (admin/superadmin) pass.
- */
-async function isStaff(): Promise<boolean> {
-  if (process.env.PROPERTY_SIZING_ALLOW_UNAUTHED === "true") return true;
-  try {
-    const supabase = await createClient();
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return false;
-    const { data: profile } = await supabase
-      .from("profiles")
-      .select("role")
-      .eq("id", user.id)
-      .single();
-    return profile?.role === "admin" || profile?.role === "superadmin";
-  } catch {
-    return false;
-  }
-}
-
 export async function POST(req: NextRequest) {
-  if (!(await isStaff())) {
+  if (!(await isStaff("PROPERTY_SIZING_ALLOW_UNAUTHED"))) {
     return NextResponse.json(
       { ok: false, error: "Not authorised — staff login required." },
       { status: 401 }
