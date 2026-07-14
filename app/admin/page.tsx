@@ -13,6 +13,12 @@ const TOOLS = [
       "Enter or upload survey path coordinates and download a ready-to-use .kml file.",
     href: "/admin/kml-builder",
   },
+  {
+    title: "Survey Heading Uploader",
+    description:
+      "Upload the Survey Heading macro's CSV export straight into Salesforce for a Survey.",
+    href: "/admin/survey-heading-uploader",
+  },
 ];
 
 export default function AdminHomePage() {
