@@ -16,3 +16,18 @@ export function pathLengthKm(points: LatLng[]): number {
   for (let i = 1; i < points.length; i++) total += haversineKm(points[i - 1], points[i]);
   return total;
 }
+
+// Council footpath registers commonly total BOTH sides of the road, so the sheet's
+// length is expected to land anywhere from ~1x (footpath on one side only) to ~2x
+// (both sides) the traced centerline length — only flag genuine outliers either side.
+const LENGTH_MISMATCH_MIN_RATIO = 0.5;
+const LENGTH_MISMATCH_MAX_RATIO = 2.5;
+
+export function lengthMismatchFlag(tracedKm: number, sheetKm: number | null | undefined): string | null {
+  if (sheetKm == null || sheetKm <= 0 || tracedKm <= 0) return null;
+  const ratio = sheetKm / tracedKm;
+  if (ratio < LENGTH_MISMATCH_MIN_RATIO || ratio > LENGTH_MISMATCH_MAX_RATIO) {
+    return `traced ${tracedKm.toFixed(2)}km vs sheet's ${sheetKm.toFixed(2)}km — verify`;
+  }
+  return null;
+}

@@ -26,3 +26,23 @@ export interface RoadTraceResult {
   /** Human-readable notes: geocode/route failures, length-mismatch sanity check, etc. */
   flags: string[];
 }
+
+export interface GeocodedIntersection extends LatLng {
+  formattedAddress: string;
+  /** False if Google matched something less precise than an actual intersection (e.g. just the suburb). */
+  isIntersection: boolean;
+}
+
+export type MapsLinkStatus = "ok" | "not_found" | "error";
+
+export interface MapsLinkResult {
+  input: RoadSegmentInput;
+  status: MapsLinkStatus;
+  origin: GeocodedIntersection | null;
+  destination: GeocodedIntersection | null;
+  /** Google Maps directions deep-link — null unless status is "ok". */
+  mapsUrl: string | null;
+  /** True if we confirmed the route actually travels along roadName (vs. just start/end matching). */
+  followsRoad: boolean;
+  flags: string[];
+}

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import { buildKml } from "@/lib/kml/build";
 import type { KmlPathInput } from "@/lib/kml/types";
-import type { RoadSegmentInput, RoadTraceResult } from "@/lib/kml/road-segments/types";
+import type { RoadSegmentInput, RoadTraceResult, MapsLinkResult } from "@/lib/kml/road-segments/types";
 
 interface Row {
   id: number;
@@ -86,13 +86,26 @@ const STATUS_LABEL: Record<RoadTraceResult["status"], string> = {
   error: "Error",
 };
 
+const MAPS_STATUS_LABEL: Record<MapsLinkResult["status"], string> = {
+  ok: "Found",
+  not_found: "Couldn't locate",
+  error: "Error",
+};
+
+function csvField(value: string): string {
+  return /[",\n]/.test(value) ? `"${value.replace(/"/g, '""')}"` : value;
+}
+
 export function RoadSegmentsTab() {
   const [documentName, setDocumentName] = useState("AusDilaps Road Paths");
   const [rows, setRows] = useState<Row[]>([emptyRow()]);
   const [results, setResults] = useState<Record<number, RoadTraceResult>>({});
+  const [mapsResults, setMapsResults] = useState<Record<number, MapsLinkResult>>({});
   const [dragActive, setDragActive] = useState(false);
   const [extracting, setExtracting] = useState(false);
   const [tracing, setTracing] = useState(false);
+  const [findingLinks, setFindingLinks] = useState(false);
+  const [linksCopied, setLinksCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInput = useRef<HTMLInputElement>(null);
 
@@ -176,6 +189,67 @@ export function RoadSegmentsTab() {
     } finally {
       setTracing(false);
     }
+  }
+
+  async function findMapsLinks() {
+    setError(null);
+    if (readyRows.length === 0) {
+      setError("Add at least one complete row first.");
+      return;
+    }
+    setFindingLinks(true);
+    try {
+      const res = await fetch("/api/kml/road-segments/maps-links", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ segments: readyRows.map(rowToInput) }),
+      });
+      const json = (await res.json()) as { ok: boolean; results?: MapsLinkResult[]; error?: string };
+      if (!res.ok || !json.ok || !json.results) {
+        setError(json.error ?? "Something went wrong finding Google Maps links.");
+        return;
+      }
+      const byId: Record<number, MapsLinkResult> = {};
+      readyRows.forEach((row, i) => {
+        byId[row.id] = json.results![i];
+      });
+      setMapsResults(byId);
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setFindingLinks(false);
+    }
+  }
+
+  const linkedRows = rows.filter((r) => mapsResults[r.id]?.status === "ok" && mapsResults[r.id]?.mapsUrl);
+
+  function copyAllLinks() {
+    setError(null);
+    if (linkedRows.length === 0) {
+      setError("Find Google Maps links first.");
+      return;
+    }
+    const text = linkedRows
+      .map((row) => `${row.roadName}: ${row.fromDesc} to ${row.toDesc} — ${mapsResults[row.id].mapsUrl}`)
+      .join("\n");
+    void navigator.clipboard.writeText(text);
+    setLinksCopied(true);
+    setTimeout(() => setLinksCopied(false), 2000);
+  }
+
+  function downloadLinksCsv() {
+    setError(null);
+    if (linkedRows.length === 0) {
+      setError("Find Google Maps links first.");
+      return;
+    }
+    const header = "Zone,Location,Road Name,From,To,Google Maps Link";
+    const lines = linkedRows.map((row) =>
+      [row.zone, row.location, row.roadName, row.fromDesc, row.toDesc, mapsResults[row.id].mapsUrl ?? ""]
+        .map(csvField)
+        .join(",")
+    );
+    downloadBlob([header, ...lines].join("\n"), `${slugify(documentName)}-maps-links.csv`, "text/csv");
   }
 
   const tracedRows = rows.filter((r) => results[r.id]?.status === "ok");
@@ -278,6 +352,7 @@ export function RoadSegmentsTab() {
               <th className="px-3 py-2 font-medium">To</th>
               <th className="px-3 py-2 font-medium">Length (km)</th>
               <th className="px-3 py-2 font-medium">Status</th>
+              <th className="px-3 py-2 font-medium">Google Maps</th>
               <th className="px-3 py-2 font-medium" />
             </tr>
           </thead>
@@ -286,6 +361,7 @@ export function RoadSegmentsTab() {
               const issue = rowIssues[i];
               const touched = row.location || row.roadName || row.fromDesc || row.toDesc;
               const result = results[row.id];
+              const mapsResult = mapsResults[row.id];
               return (
                 <tr key={row.id} className="border-t border-ad-border align-top">
                   <td className="px-3 py-2">
@@ -358,6 +434,29 @@ export function RoadSegmentsTab() {
                       </div>
                     )}
                   </td>
+                  <td className="px-3 py-2 text-xs">
+                    {mapsResult && (
+                      <div>
+                        {mapsResult.status === "ok" && mapsResult.mapsUrl ? (
+                          <a
+                            href={mapsResult.mapsUrl}
+                            target="_blank"
+                            rel="noopener"
+                            className="font-medium text-ad-steel underline underline-offset-2"
+                          >
+                            Open ↗
+                          </a>
+                        ) : (
+                          <p className="font-medium text-ad-orange">{MAPS_STATUS_LABEL[mapsResult.status]}</p>
+                        )}
+                        {mapsResult.flags.map((f, fi) => (
+                          <p key={fi} className="text-ad-muted">
+                            {f}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </td>
                   <td className="px-3 py-2 text-right">
                     <button
                       type="button"
@@ -401,6 +500,34 @@ export function RoadSegmentsTab() {
           Generate & download .kml ({tracedRows.length})
         </button>
         {error && <span className="text-sm text-ad-orange">{error}</span>}
+      </div>
+      <p className="mt-2 text-xs text-ad-muted">
+        Traces using Google Maps when it's configured (more reliable), falling back to free
+        OpenStreetMap data otherwise.
+      </p>
+
+      <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-ad-border pt-6">
+        <button
+          className={cn(buttonVariants({ variant: "primary", size: "md" }), findingLinks && "opacity-60")}
+          onClick={findMapsLinks}
+          disabled={findingLinks}
+        >
+          {findingLinks ? "Finding links…" : "Find Google Maps links"}
+        </button>
+        <button
+          className={cn(buttonVariants({ variant: "outline", size: "md" }))}
+          onClick={copyAllLinks}
+          disabled={linkedRows.length === 0}
+        >
+          {linksCopied ? "Copied!" : `Copy all links (${linkedRows.length})`}
+        </button>
+        <button
+          className={cn(buttonVariants({ variant: "outline", size: "md" }))}
+          onClick={downloadLinksCsv}
+          disabled={linkedRows.length === 0}
+        >
+          Download links (CSV)
+        </button>
       </div>
     </div>
   );
