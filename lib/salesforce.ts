@@ -14,6 +14,12 @@ export type SalesforceLead = {
   projectLocation?: string | null;
   notes?: string | null;
   tier: LeadTier;
+  inquiryType?: string | null;
+  propertyRole?: string | null;
+  projectNumber?: string | null;
+  documentId?: string | null;
+  contactAddress?: string | null;
+  contactMethod?: string[] | null;
 };
 
 export async function syncLeadToSalesforce(
@@ -62,8 +68,14 @@ export async function syncLeadToSalesforce(
           LeadSource: "Website — Quote form",
           Rating: lead.tier === "tier1" ? "Hot" : lead.tier === "tier2" ? "Warm" : "Cold",
           Description: [
+            lead.inquiryType && `Inquiry type: ${lead.inquiryType}`,
             lead.projectName && `Project: ${lead.projectName}`,
             lead.projectLocation && `Location: ${lead.projectLocation}`,
+            lead.propertyRole && `Property role: ${lead.propertyRole}`,
+            lead.projectNumber && `Project/OPT number: ${lead.projectNumber}`,
+            lead.documentId && `Document ID: ${lead.documentId}`,
+            lead.contactAddress && `Address: ${lead.contactAddress}`,
+            lead.contactMethod?.length && `Preferred contact: ${lead.contactMethod.join(", ")}`,
             `Tier: ${lead.tier}`,
             lead.notes && `Notes: ${lead.notes}`,
           ]

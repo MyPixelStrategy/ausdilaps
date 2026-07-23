@@ -29,6 +29,7 @@ async function sendEmails(d: QuoteInput, tier: LeadTier, testMode: boolean) {
   const salesNotify = process.env.SALES_NOTIFY_EMAIL;
 
   const rows: [string, string | number | undefined][] = [
+    ["Inquiry type", d.inquiryType],
     ["Name", d.name],
     ["Role", d.role],
     ["Company", d.company],
@@ -39,6 +40,11 @@ async function sendEmails(d: QuoteInput, tier: LeadTier, testMode: boolean) {
     ["Adjoining properties", d.adjoiningCount],
     ["Required start", d.requiredStart],
     ["DA condition / clause", d.daConditionRef],
+    ["Property role", d.propertyRole],
+    ["Project / OPT number", d.projectNumber],
+    ["Document ID", d.documentId],
+    ["Address", d.contactAddress],
+    ["Preferred contact", d.contactMethod?.join(", ")],
     ["Tier", tier],
   ];
   const tableRows = rows
@@ -134,6 +140,7 @@ export async function POST(req: NextRequest) {
   const userAgent = req.headers.get("user-agent") ?? null;
 
   const row = {
+    inquiry_type: d.inquiryType,
     name: d.name,
     email: d.email,
     phone: d.phone || null,
@@ -144,6 +151,11 @@ export async function POST(req: NextRequest) {
     adjoining_count: d.adjoiningCount ?? null,
     required_start: d.requiredStart || null,
     da_condition_ref: d.daConditionRef || null,
+    property_role: d.propertyRole || null,
+    project_number: d.projectNumber || null,
+    document_id: d.documentId || null,
+    contact_address: d.contactAddress || null,
+    contact_method: d.contactMethod?.length ? d.contactMethod : null,
     notes: d.notes || null,
     tier,
     routing: tier === "tier1" ? "priority" : "standard",
@@ -196,6 +208,12 @@ export async function POST(req: NextRequest) {
       projectLocation: d.projectLocation,
       notes: d.notes,
       tier,
+      inquiryType: d.inquiryType,
+      propertyRole: d.propertyRole,
+      projectNumber: d.projectNumber,
+      documentId: d.documentId,
+      contactAddress: d.contactAddress,
+      contactMethod: d.contactMethod,
     });
   }
 

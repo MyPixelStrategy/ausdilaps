@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 };
 
 const STEPS = [
-  { n: "01", title: "Tell us the project", body: "Share the location, the adjoining properties and any DA condition or contract clause." },
-  { n: "02", title: "We scope it", body: "We review the requirements and prepare an itemised quote — typically within 48 hours." },
-  { n: "03", title: "We get to site", body: "On acceptance we arrange access and schedule the survey, and keep you updated throughout." },
+  { n: "01", title: "Tell us what you need", body: "Pick the option that fits — a new quote, an access letter query, a report question or something else." },
+  { n: "02", title: "We route it", body: "Your enquiry goes straight to the right person on our team — typically a response within 48 hours." },
+  { n: "03", title: "We follow through", body: "For new projects, that means an itemised quote and, on acceptance, access arranged and the survey scheduled." },
 ];
 
 export default function QuotePage() {
@@ -35,11 +35,12 @@ export default function QuotePage() {
           <Breadcrumbs crumbs={CRUMBS} />
           <Eyebrow className="mt-6 text-ad-accent">Request a Quote</Eyebrow>
           <h1 className="mt-5 text-balance font-heading text-4xl font-semibold leading-[1.08] tracking-tight text-ad-ink sm:text-5xl">
-            Get your project scoped.
+            Get in touch.
           </h1>
           <p className="mt-6 text-lg leading-relaxed text-ad-muted">
-            Tell us about the project and the adjoining properties involved. The more detail you give,
-            the faster we can return an accurate, itemised quote — typically within 48 hours.
+            Tell us what you need — a new project quote, a question about an access letter, an
+            existing report, or something else — and we&apos;ll route it straight to the right person.
+            Typically within 48 hours.
           </p>
         </Container>
       </section>

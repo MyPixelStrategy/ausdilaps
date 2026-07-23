@@ -116,41 +116,52 @@ export default function SamplesPage() {
         intro="See the standard for yourself. We publish real sample reports across every capture type — from residential and commercial surveys to drone, tunnel, roadway and engineering reports. Every one is AS 4349.0-compliant, with location-referenced imagery and engineer sign-off."
       />
 
-      {SAMPLE_GROUPS.map((group, i) => (
-        <section
-          key={group.id}
-          className={i % 2 === 1 ? "bg-ad-surface py-16 lg:py-20" : "py-16 lg:py-20"}
-        >
-          <Container>
-            <div className="max-w-2xl">
+      {/* Jump nav — lets you skip straight to a category instead of scrolling past everything */}
+      <section className="border-b border-ad-border py-5">
+        <Container>
+          <nav aria-label="Sample categories" className="flex flex-wrap gap-x-6 gap-y-2">
+            {SAMPLE_GROUPS.map((group) => (
+              <a
+                key={group.id}
+                href={`#${group.id}`}
+                className="text-sm font-medium text-ad-muted transition-colors hover:text-ad-accent"
+              >
+                {group.title}
+              </a>
+            ))}
+          </nav>
+        </Container>
+      </section>
+
+      <section className="py-16 lg:py-20">
+        <Container className="max-w-3xl space-y-14">
+          {SAMPLE_GROUPS.map((group) => (
+            <div key={group.id} id={group.id} className="scroll-mt-24">
               <Eyebrow className="text-ad-accent">{group.title}</Eyebrow>
-              <p className="mt-4 text-ad-muted">{group.blurb}</p>
+              <p className="mt-3 text-ad-muted">{group.blurb}</p>
+              <div className="mt-6 divide-y divide-ad-border rounded-xl border border-ad-border bg-white">
+                {group.items.map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between gap-4 px-5 py-4 transition-colors hover:bg-ad-surface sm:px-6"
+                  >
+                    <div>
+                      <h3 className="font-heading text-[0.95rem] font-semibold text-ad-ink group-hover:text-ad-accent">
+                        {s.name}
+                      </h3>
+                      <p className="mt-0.5 text-sm leading-relaxed text-ad-muted">{s.desc}</p>
+                    </div>
+                    <span className="shrink-0 text-sm font-medium text-ad-accent">View →</span>
+                  </a>
+                ))}
+              </div>
             </div>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {group.items.map((s) => (
-                <a
-                  key={s.name}
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group flex flex-col rounded-xl border border-ad-border bg-white p-6 transition-colors hover:border-ad-accent/40"
-                >
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="rounded bg-ad-surface px-2 py-0.5 text-[0.7rem] font-semibold uppercase tracking-wide text-ad-muted">
-                      PDF
-                    </span>
-                  </div>
-                  <h3 className="mt-4 font-heading text-base font-semibold text-ad-ink group-hover:text-ad-accent">
-                    {s.name}
-                  </h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-ad-muted">{s.desc}</p>
-                  <span className="mt-4 text-sm font-medium text-ad-accent">View sample →</span>
-                </a>
-              ))}
-            </div>
-          </Container>
-        </section>
-      ))}
+          ))}
+        </Container>
+      </section>
 
       {/* LiDAR / 3D interactive note */}
       <section className="bg-ad-navy py-16 text-ad-on-dark lg:py-20">
