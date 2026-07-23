@@ -34,4 +34,8 @@ export const REDIRECTS: Redirect[] = [
     destination: "/dilapidation-reports",
     permanent: true,
   },
+
+  // Convenience shortcut — canonical page stays at /dilapidation-reports/samples
+  // (preserves the live ranking URL); this is just a shorter alias.
+  { source: "/samples", destination: "/dilapidation-reports/samples", permanent: true },
 ];
